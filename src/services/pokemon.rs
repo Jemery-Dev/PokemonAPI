@@ -3,7 +3,7 @@ use ntex::web;
 use crate::models::pokemon::Pokemon;
 
 // List All Pokemons
-#[utoipa::path( // Make a path for each function with statuts, description, body...
+#[utoipa::path( // Make a path for each function with status, description, body...
     get,
     path = "/pokemon",
     responses(
@@ -18,7 +18,7 @@ pub async fn get_pokemons() -> web::HttpResponse {
 
 //Create a Pokemon
 #[utoipa::path(
-    get,
+    post,
     path = "/pokemon",
     request_body = Pokemon,
     responses(
@@ -33,7 +33,8 @@ pub async fn create_pokemon(
 }
 
 
-#[utoipa::path( // Two status if the pokemon is or not found
+/// Two status if the pokemon is or not found
+#[utoipa::path(
     get,
     path = "/pokemon/{id}",
     responses(
@@ -48,7 +49,7 @@ pub async fn get_pokemon() -> web::HttpResponse {
 
 
 #[utoipa::path(
-    get,
+    put,
     path = "/pokemon/{id}",
     responses(
     (status = 200, description = "Pokemon updated", body = Pokemon),
