@@ -6,13 +6,15 @@ use serde::{Serialize, Deserialize};
 pub struct Pokemon {
   pub id: u64,
   pub name: String,
-  pub types: PokemonType,
+  pub types: (PokemonType, Option<PokemonType>),
   /// u16 -> 0 : 65535
   pub attack: u16,
   pub defense: u16,
   pub health: u16,
   pub birthday: String,
 }
+
+
 
 #[derive(Clone, Debug, Serialize, Deserialize, ToSchema)]
 pub enum PokemonType {

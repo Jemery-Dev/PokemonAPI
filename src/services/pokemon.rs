@@ -1,6 +1,6 @@
 use ntex::web;
 
-use crate::models::pokemon::Pokemon;
+use crate::models::pokemon::{Pokemon, PokemonType};
 
 // List All Pokemons
 #[utoipa::path( // Make a path for each function with status, description, body...
@@ -43,10 +43,21 @@ pub async fn create_pokemon(
     ),
 )]
 #[web::get("/pokemon/{id}")]
-pub async fn get_pokemon() -> web::HttpResponse {
-  web::HttpResponse::Ok().finish()
-}
+pub async fn get_pokemon(_path: web::types::Path<u64>) -> web::HttpResponse {
+    // Make instance of a Pokemon
+    let first_zissure = Pokemon {
+        id: 1,
+        name: String::from("Pikachu"),
+        types: (PokemonType::Electric, None),
+        attack: 100,
+        defense: 80,
+        health: 120,
+        birthday: String::from("2012-12-12"),
+    };
 
+    // Show JSON
+    web::HttpResponse::Ok().json(&first_zissure)
+}
 
 #[utoipa::path(
     put,

@@ -7,6 +7,7 @@ use utoipa::OpenApi;
 
 use crate::error::HttpError;
 use crate::models::pokemon::{Pokemon, PokemonType};
+use crate::services::pokemon::{create_pokemon, delete_pokemon, get_pokemon, get_pokemons, update_pokemon};
 
 use super::pokemon;
 
@@ -65,11 +66,16 @@ async fn get_swagger(
 
 pub fn ntex_config(config: &mut web::ServiceConfig) {
   let swagger_config = Arc::new(
-    utoipa_swagger_ui::Config::new(["/pokemonapi/swagger.json"])
+    utoipa_swagger_ui::Config::new(["/api/swagger.json"])
       .use_base_layout(),
   );
   config.service(
-    web::scope("/pokemonapi/")
+    web::scope("api") // For all paths with "localhost:8080/api/..."
+      .service(get_pokemons)
+      .service(create_pokemon)
+      .service(get_pokemon)
+      .service(update_pokemon)
+      .service(delete_pokemon)
       .state(swagger_config)
       .service(get_swagger),
   );
