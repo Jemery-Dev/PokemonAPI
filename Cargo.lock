@@ -717,6 +717,7 @@ checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
 name = "pokemonapi"
 version = "0.1.0"
 dependencies = [
+ "lazy_static",
  "ntex",
  "serde",
  "serde_json",
