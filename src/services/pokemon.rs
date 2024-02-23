@@ -44,8 +44,7 @@ pub async fn get_pokemons() -> web::HttpResponse {
 pub async fn create_pokemon(pokemon: Json<Pokemon>) -> HttpResponse {
     let mut data = POKEMON_VEC.lock().unwrap();
     data.push(pokemon.clone());
-    println!("{:?}", pokemon);
-    HttpResponse::Created().finish()
+    HttpResponse::Created().body(format!("Created pokemon {}", pokemon.id))
 }
 
 
