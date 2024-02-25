@@ -1,0 +1,14 @@
+[
+  {
+    "id": 2,
+    "name": "Julo Caposiena",
+    "types": [
+      "Dragon",
+      null
+    ],
+    "attack": 10,
+    "defense": 122,
+    "health": 29,
+    "birthday": "12/12/2333"
+  }
+]

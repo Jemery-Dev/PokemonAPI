@@ -7,7 +7,7 @@ use utoipa::OpenApi;
 
 use crate::error::HttpError;
 use crate::models::pokemon::{Pokemon, PokemonType};
-use crate::services::pokemon::{create_pokemon, delete_pokemon, get_pokemon, get_pokemons, update_pokemon};
+use crate::services::pokemon::{create_pokemon, delete_pokemon, get_pokemon, get_pokemons, get_stats, update_pokemon};
 
 use super::pokemon;
 
@@ -71,6 +71,7 @@ pub fn ntex_config(config: &mut web::ServiceConfig) {
   );
   config.service(
     web::scope("api") // For all paths with "localhost:8080/api/..."
+        .service(get_stats)
       .service(get_pokemons)
       .service(create_pokemon)
       .service(get_pokemon)
