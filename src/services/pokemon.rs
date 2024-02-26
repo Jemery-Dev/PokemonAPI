@@ -96,13 +96,21 @@ pub async fn get_pokemon(id: web::types::Path<u64>) -> web::HttpResponse {
         lock()
         .unwrap();
 
-    // Get Pokemon with the ID
-    let found_pokemon = data
-        .iter()
-        .find(|pokemon| pokemon.id == id_pokemon);
+    // Check if pokemon exist
+    if data.iter()
+        .find(|pokemon| pokemon.id == id_pokemon).is_some(){
 
-    // Return the Pokemon
-    web::HttpResponse::Ok().json(&found_pokemon)
+        // Return the Pokemon
+        web::HttpResponse::Ok().json(&data
+            .iter()
+            .find(|pokemon| pokemon.id == id_pokemon))
+    }
+    // Return 404 error
+    else{
+        web::HttpResponse::BadRequest().body(format!("Pokemon of ID {} not found", id_pokemon))
+    }
+
+
 }
 
 /// Update a Pokemon by ID
