@@ -63,7 +63,7 @@ pub async fn create_pokemon(pokemon: Json<Pokemon>) -> HttpResponse {
     //Check if pokemon of {{id}} already exists
     if(data.iter().find(|pokemondata| pokemondata.id == pokemon.id)).is_some(){
         //Return error
-        HttpResponse::Created().body(format!("Pokemon of ID {} already exists", pokemon.id))
+        HttpResponse::BadRequest().body(format!("Pokemon of ID {} already exists", pokemon.id))
     } else {
         //Else push into vec
         data.push(pokemon.clone());
@@ -125,7 +125,7 @@ pub async fn update_pokemon(pokemon: Json<Pokemon>, id: web::types::Path<u64>) -
 
         //Check if some Pokemon of {{id}} already exist
         if(data.iter().find(|pokemondata| pokemondata.id == pokemon.id)).is_some() {
-            HttpResponse::Created().body(format!("Pokemon of ID {} already exists", pokemon.id))
+            HttpResponse::BadRequest().body(format!("Pokemon of ID {} already exists", pokemon.id))
         }
         else {
             // Update the Pokemon at the found index
